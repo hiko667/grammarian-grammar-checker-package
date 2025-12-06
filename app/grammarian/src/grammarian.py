@@ -3,7 +3,7 @@ from importlib import resources
 from .utilities import GrammarianException, GrammarianCheck
 class Grammarian:
     def __init__(self):
-        base_path = resources.files("app.grammarian.src")
+        base_path = resources.files("grammarian.src")
         self.so_path = base_path.joinpath("grammar.so")
         self.file_path = ctypes.c_char_p(str(base_path.joinpath("words_alpha.txt")).encode('utf-8'))
         self.grammar_checker = ctypes.CDLL(self.so_path)

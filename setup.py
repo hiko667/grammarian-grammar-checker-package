@@ -5,13 +5,13 @@ with open("app/README.md", "r") as f:
 
 setup(
     name="grammarian",
-    version="0.0.2",
+    version="0.1.15",
     description="An easy and fast tool to check english grammar",
     package_dir={"": "app"},
     packages=find_packages(where="app"),
     include_package_data=True,
     package_data={
-        "src":["grammar.so", "words_alpha.txt"],
+        "grammarian.src":["*"],
     },
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -24,5 +24,7 @@ setup(
         "Operating System :: OS Independent"
     ],
     python_requires =">=3.13",
-
+    extras_require = {
+        "dev" : ["twine>=6.2.0"]
+    }
 )

@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: grammarian
-Version: 0.0.2
+Version: 0.1.15
 Summary: An easy and fast tool to check english grammar
 Home-page: https://github.com/hiko667/grammarian-grammar-checker-package
 Author: StanisławKulesza
@@ -11,6 +11,8 @@ Classifier: Operating System :: OS Independent
 Requires-Python: >=3.13
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
+Provides-Extra: dev
+Requires-Dist: twine>=6.2.0; extra == "dev"
 Dynamic: author
 Dynamic: classifier
 Dynamic: description
@@ -18,6 +20,7 @@ Dynamic: description-content-type
 Dynamic: home-page
 Dynamic: license
 Dynamic: license-file
+Dynamic: provides-extra
 Dynamic: requires-python
 Dynamic: summary
 
