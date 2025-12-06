@@ -1,6 +1,10 @@
+
 # Grammarian
 
 Grammarian is a Python package that allows you to easily check the correctness of English words, and also suggests "what the author (potentially) meant" if the word is not correct. 
+
+
+
 
 ## Authors
 
@@ -9,7 +13,13 @@ Grammarian is a Python package that allows you to easily check the correctness o
 
 ## Deployment
 
-To deploy this package, you need to put it in the same dir as your working dir. Curently learning to make it a proper package, instaled via pip
+To deploy this package, while being in the same dir as it run 
+
+```bash
+pip install .
+
+```
+
 
 ## Usage/Examples
 
@@ -44,4 +54,8 @@ or in terminal:
 ```bash
 apple appled apples apelet apoplex appale appel appet appl apply
 ```
+
+## Feedback
+
+If you have any feedback, please reach out to me on github. All feedback will be apriciated
 
