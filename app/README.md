@@ -13,8 +13,12 @@ Grammarian is a Python package that allows you to easily check the correctness o
 
 ## Deployment
 
-To deploy this package, you need to put it in the same dir as your working dir. Curently learning to make it a proper package, instaled via pip
+To deploy this package, you just need to run following commnd in your terminal:
 
+```bash
+pip install grammarian
+
+```
 
 
 ## Usage/Examples
@@ -46,7 +50,11 @@ to return a str in format of:
 ```python
 return ' '.join(self.suggestions)
 ```
-or in terminal:
+to acces all of the words on their own run:
+```python
+g.check_grammar("appleq")[i]
+```
+where 'i' variable is between 0-9. For "appleq" it returns:
 ```bash
 apple appled apples apelet apoplex appale appel appet appl apply
 ```
