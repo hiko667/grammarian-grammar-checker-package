@@ -11,10 +11,13 @@ class Grammarian:
         self.check_word.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
         self.check_word.restype = ctypes.c_bool
         self.seek_corects = self.grammar_checker.seek_corects
-        self.seek_corects.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-        self.seek_corects.restype = ctypes.POINTER(10 * ctypes.c_char_p)
+        self.seek_corects.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+        
         self.free = self.grammar_checker.free_words
-    def check_grammar(self, word : str)->GrammarianCheck:
+    def check_grammar(self, word : str, size: int = 5)->GrammarianCheck:
+            if size > 0:
+                self.seek_corects.restype = ctypes.POINTER(size * ctypes.c_char_p)
+                self.free.argtypes = [ctypes.POINTER(size * ctypes.c_char_p), ctypes.c_int]
             word = word.replace(" ", "").lower()
             if(len(word) > 46):
                 raise GrammarianException("Word given is too long. Grammarian checks words 46 letter long or shorter")
@@ -22,11 +25,14 @@ class Grammarian:
             if self.check_word(byte_word, self.file_path):
                 return GrammarianCheck(is_correct=True)
             else:
-                suggestions = self.seek_corects(byte_word, self.file_path)
+                if size <= 0:
+                     return GrammarianCheck(is_correct=False)
+                size_c = ctypes.c_int(size)
+                suggestions = self.seek_corects(byte_word, self.file_path, size_c)
                 response : list[str] = []
-                for i in range(10):
+                for i in range(size):
                     response.append(suggestions.contents[i].decode('utf-8'))
-                self.free(suggestions)
+                self.free(suggestions, size_c)
                 return GrammarianCheck(is_correct=False, suggestions=response)
 
 # g = Grammarian()

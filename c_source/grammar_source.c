@@ -42,8 +42,10 @@ int wagner_fisher(const char * word1, const char * word2)
     return response;
 }
 //get words gets words that are nearest of target word, and return an array
-void get_words(char ** simmilar_words, char word[46], char * path)
+void get_words(char ** simmilar_words, char word[46], char * path, int how_much)
 {
+    // printf("%d Zuzia3", how_much); 
+
     char (*loaded)[46] = malloc(370099 * 46);
     FILE *f = fopen(path, "r");
     int counter = 0;
@@ -53,11 +55,15 @@ void get_words(char ** simmilar_words, char word[46], char * path)
         counter++;
     }
     fclose(f);
-    int scores[10] = {INT_MAX,INT_MAX,INT_MAX,INT_MAX,INT_MAX, INT_MAX,INT_MAX,INT_MAX,INT_MAX,INT_MAX};
+    int * scores = malloc(how_much * sizeof(int));
+    // printf("%d Zuzia4", how_much); 
+    for(int i = 0; i<how_much; i++)
+        scores[i] = INT_MAX;
+    // printf("%d Zuzia5", how_much); 
     for(int i = 0; i<counter; i++)
     {
         int score = wagner_fisher(loaded[i], word);
-        for (int j = 0; j<10; j++)
+        for (int j = 0; j<how_much; j++)
         {
             if(score < scores[j])
             {
@@ -67,10 +73,11 @@ void get_words(char ** simmilar_words, char word[46], char * path)
             }
         }
     }
-    //bubble sort, just 100 operations O(n) not gonna change it
-    for (int a = 0; a < 9; a++) 
+    // printf("%d Zuzia6", how_much); 
+    //bubble sort, no more than 100 operations usually O(n) not gonna change it
+    for (int a = 0; a < how_much - 1; a++) 
     {
-        for (int b = 0; b < 9 - a; b++) {
+        for (int b = 0; b < how_much - a - 1; b++) {
             if (scores[b] > scores[b+1]) {
                 int temp = scores[b];
                 scores[b] = scores[b+1];
@@ -79,6 +86,8 @@ void get_words(char ** simmilar_words, char word[46], char * path)
             }
     }
     }
+    // printf("%d Zuziax", how_much); 
+    free(scores);
     free(loaded);
     return; 
 }
@@ -86,7 +95,7 @@ void get_words(char ** simmilar_words, char word[46], char * path)
 bool check_word(char * word, char * path)
 {
     //debug case:
-    // printf("%s Zuzia", path); 
+    // printf("%d Zuzia", path); 
     bool res = false;
     char (*loaded)[46] = malloc(370099 * 46);
     FILE *f = fopen(path, "r");
@@ -118,20 +127,23 @@ bool check_word(char * word, char * path)
     return res;
 }
 //this function alocates memory and runs get_words function
-char ** seek_corects(char * word, char * path)
+char ** seek_corects(char * word, char * path, int how_much)
 {
-    char ** words_out = calloc(10, sizeof(char*));
-    for(int i = 0; i<10; i++)
+    // printf("%d Zuzia1", how_much); 
+    char ** words_out = calloc(how_much, sizeof(char*));
+    for(int i = 0; i<how_much; i++)
     {
         words_out[i] = calloc(46, sizeof(char));
     }
-    get_words(words_out, word, path);
+    get_words(words_out, word, path, how_much);
+    // printf("%d Zuzia2", how_much); 
     return words_out;   
 }
 //this free_words function frees memory alocated in seek_corects
-void free_words(char ** words)
+void free_words(char ** words, int how_much)
 {
-    for(int i = 0; i<10; i++)
+    // printf("%d Zuziafree", how_much); 
+    for(int i = 0; i<how_much; i++)
         free(words[i]);
     free(words);
 }

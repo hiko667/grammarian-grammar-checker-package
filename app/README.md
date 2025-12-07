@@ -41,7 +41,7 @@ to create an instance of it. Constructor is meant to be empty. To check grammar 
 g.check_grammar("apple")
 
 ```
-check_grammar returns an GrammarianCheck class instance. If the word you have given is correct, GrammarianCheck.is_correct will be True, and GrammarianCheck.suggestions will be None. If the word is incorrect, GrammarianCheck.is_correct will be False, and GrammarianCheck.suggestions will be a list of 10 suggested words (in str). Run:
+check_grammar returns an GrammarianCheck class instance. If the word you have given is correct, GrammarianCheck.is_correct will be True, and GrammarianCheck.suggestions will be None. If the word is incorrect, GrammarianCheck.is_correct will be False, and GrammarianCheck.suggestions will be a list of 5 suggested words (in str). Run:
 ```python
 str(g.check_grammar("appleq"))
 
@@ -54,8 +54,11 @@ to acces all of the words on their own run:
 ```python
 g.check_grammar("appleq")[i]
 ```
-where 'i' variable is between 0-9. For "appleq" it returns:
+where 'i' variable is by deafault between 0-5. For "appleq" it returns:
 ```bash
-apple appled apples apelet apoplex appale appel appet appl apply
+apple appled apples apelet apoplex 
 ```
-
+as mentioned, i is "by deafult" no higher than 5. Since grammarian 0.1.20 you can set the number of returned elements. If you set the size variable to zero or less, code will just return if its correct.
+```python
+g.check_grammar("appleq", 10)
+```

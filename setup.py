@@ -5,7 +5,7 @@ with open("app/README.md", "r") as f:
 
 setup(
     name="grammarian",
-    version="0.1.16",
+    version="0.1.20",
     description="An easy and fast tool to check english grammar",
     package_dir={"": "app"},
     packages=find_packages(where="app"),

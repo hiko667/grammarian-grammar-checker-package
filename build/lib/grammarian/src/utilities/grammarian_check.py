@@ -6,4 +6,7 @@ class GrammarianCheck:
         if self.is_correct:
             return f"Correct"
         else:
-            return ' '.join(self.suggestions)
+            if self.suggestions != None:
+                return ' '.join(self.suggestions)
+            else:
+                return "Incorrect"
