@@ -62,3 +62,8 @@ as mentioned, i is "by deafult" no higher than 5. Since grammarian 0.1.20 you ca
 ```python
 g.check_grammar("appleq", 10)
 ```
+Sience version 0.2.1 you can run
+```python
+g.quick_swap(str(input()))
+```
+to first check if the string is correct, and than if it is not, swap it for the most propable

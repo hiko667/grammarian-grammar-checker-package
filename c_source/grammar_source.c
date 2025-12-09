@@ -139,6 +139,36 @@ char ** seek_corects(char * word, char * path, int how_much)
     // printf("%d Zuzia2", how_much); 
     return words_out;   
 }
+char ** best_word(char * word, char * path)
+{
+
+    char first_letter = word[0];
+    char (*loaded)[46] = malloc(370099 * 46);
+    FILE *f = fopen(path, "r");
+    int counter = 0;
+    while (counter < 370099 && fgets(loaded[counter], 46, f))
+    {
+        loaded[counter][strcspn(loaded[counter], "\n")] = 0;
+        counter++;
+    }
+    fclose(f);
+    int king_index = 0;
+    int king_score = wagner_fisher(word, loaded[0]);
+    for(int i = 1; i<counter; i++)
+    {
+        int score = wagner_fisher(loaded[i], word);
+        if (score<king_score || 
+        (king_score == score && (strncmp(word, loaded[i], 1) == 0 && strncmp(word, loaded[king_index], 1) !=0)))
+        {
+            king_index = i;
+            king_score = score;
+        }
+    }
+    char **  king_word = calloc(1, sizeof(char*));
+    king_word[0] = strdup(loaded[king_index]);
+    free(loaded);
+    return king_word;
+}
 //this free_words function frees memory alocated in seek_corects
 void free_words(char ** words, int how_much)
 {
